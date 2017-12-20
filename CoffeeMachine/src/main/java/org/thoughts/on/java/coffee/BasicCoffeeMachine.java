@@ -1,9 +1,11 @@
 package org.thoughts.on.java.coffee;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class BasicCoffeeMachine extends AbstractCoffeeMachine {
-
+	
 	protected Map<CoffeeSelection, CoffeeBean> beans;
 	
 	protected Grinder grinder;
@@ -17,6 +19,14 @@ public class BasicCoffeeMachine extends AbstractCoffeeMachine {
 		this.brewingUnit = new BrewingUnit();
 		
 		this.configMap.put(CoffeeSelection.FILTER_COFFEE, new Configuration(30, 480));
+	}
+	
+	public List<Coffee> brewCoffee(CoffeeSelection selection, int number) throws CoffeeException {
+		List<Coffee> coffees = new ArrayList<>(number);
+		for (int i=0; i<number; i++) {
+			coffees.add(brewCoffee(selection));
+		}
+		return coffees;
 	}
 	
 	public Coffee brewCoffee(CoffeeSelection selection) throws CoffeeException {
